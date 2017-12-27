@@ -20,25 +20,45 @@ class ControllerPaymentPayco extends Controller {
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['text_edit'] = $this->language->get('text_edit');
+		$data['text_info'] = $this->language->get('text_info');
+
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_all_zones'] = $this->language->get('text_all_zones');
 		$data['text_yes'] = $this->language->get('text_yes');
 		$data['text_no'] = $this->language->get('text_no');
 
+		$data['entry_title'] = $this->language->get('entry_title');
+		$data['entry_title_description'] = $this->language->get('entry_title_description');
+		$data['entry_description'] = $this->language->get('entry_description');
+		$data['entry_description_description'] = $this->language->get('entry_description_description');
 		$data['entry_merchant'] = $this->language->get('entry_merchant');
+		$data['entry_merchant_description'] = $this->language->get('entry_merchant_description');
 		$data['entry_key'] = $this->language->get('entry_key');
+		$data['entry_key_description'] = $this->language->get('entry_key_description');
+		$data['entry_public_key'] = $this->language->get('entry_public_key');
+		$data['entry_public_key_description'] = $this->language->get('entry_public_key_description');
+		$data['entry_checkout_type'] = $this->language->get('entry_checkout_type');
+		$data['entry_checkout_type_description'] = $this->language->get('entry_checkout_type_description');
 		$data['entry_callback'] = $this->language->get('entry_callback');
+		$data['entry_callback_description'] = $this->language->get('entry_callback_description');
+		$data['entry_confirmation'] = $this->language->get('entry_confirmation');
+		$data['entry_confirmation_description'] = $this->language->get('entry_confirmation_description');
 		//$data['entry_md5'] = $this->language->get('entry_md5');
 		//$data['entry_total'] = $this->language->get('entry_total');
 		//$data['entry_comision'] = $this->language->get('entry_comision');
 		//$data['entry_valor_comision'] = $this->language->get('entry_valor_comision');
 		
 		$data['entry_test'] = $this->language->get('entry_test');
-		$data['entry_order_status'] = $this->language->get('entry_order_status');
+		$data['entry_test_description'] = $this->language->get('entry_test_description');
+		$data['entry_initial_order_status'] = $this->language->get('entry_initial_order_status');
+		$data['entry_initial_order_status_description'] = $this->language->get('entry_initial_order_status_description');
+		$data['entry_final_order_status'] = $this->language->get('entry_final_order_status');
+		$data['entry_final_order_status_description'] = $this->language->get('entry_final_order_status_description');
 		
 		$data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$data['entry_status'] = $this->language->get('entry_status');
+		$data['entry_status_description'] = $this->language->get('entry_status_description');
 		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
 
 		$data['help_callback'] = $this->language->get('help_callback');
@@ -66,6 +86,36 @@ class ControllerPaymentPayco extends Controller {
 			$data['error_key'] = $this->error['key'];
 		} else {
 			$data['error_key'] = '';
+		}
+
+		if (isset($this->error['public_key'])) {
+			$data['error_public_key'] = $this->error['public_key'];
+		} else {
+			$data['error_public_key'] = '';
+		}
+
+		if (isset($this->error['title'])) {
+			$data['error_title'] = $this->error['title'];
+		} else {
+			$data['error_title'] = '';
+		}
+
+		if (isset($this->error['description'])) {
+			$data['error_description'] = $this->error['description'];
+		} else {
+			$data['error_description'] = '';
+		}
+
+		if (isset($this->error['callback'])) {
+			$data['error_callback'] = $this->error['callback'];
+		} else {
+			$data['error_callback'] = '';
+		}
+
+		if (isset($this->error['confirmation'])) {
+			$data['error_confirmation'] = $this->error['confirmation'];
+		} else {
+			$data['error_confirmation'] = '';
 		}
 
 		/*if (isset($this->error['comision'])) {
@@ -107,10 +157,42 @@ class ControllerPaymentPayco extends Controller {
 			$data['payco_merchant'] = $this->config->get('payco_merchant');
 		}
 
+		if (isset($this->request->post['payco_title'])) {
+			$data['payco_title'] = $this->request->post['payco_title'];
+		} else {
+			if ($this->config->get('payco_title') !== null) {
+				$data['payco_title'] = $this->config->get('payco_title');
+			} else {
+				$data['payco_title'] = $this->language->get('entry_title_default');
+			}
+		}
+
+		if (isset($this->request->post['payco_description'])) {
+			$data['payco_description'] = $this->request->post['payco_description'];
+		} else {
+			if ($this->config->get('payco_description') !== null) {
+				$data['payco_description'] = $this->config->get('payco_description');
+			} else {
+				$data['payco_description'] = $this->language->get('entry_description_default');
+			}
+		}
+
 		if (isset($this->request->post['payco_key'])) {
 			$data['payco_key'] = $this->request->post['payco_key'];
 		} else {
 			$data['payco_key'] = $this->config->get('payco_key');
+		}
+
+		if (isset($this->request->post['payco_public_key'])) {
+			$data['payco_public_key'] = $this->request->post['payco_public_key'];
+		} else {
+			$data['payco_public_key'] = $this->config->get('payco_public_key');
+		}
+
+		if (isset($this->request->post['payco_checkout_type'])) {
+			$data['payco_checkout_type'] = $this->request->post['payco_checkout_type'];
+		} else {
+			$data['payco_checkout_type'] = $this->config->get('payco_checkout_type');
 		}
 
 		if (isset($this->request->post['payco_comision'])) {
@@ -131,7 +213,24 @@ class ControllerPaymentPayco extends Controller {
 			$data['payco_test'] = $this->config->get('payco_test');
 		}
 
-		$data['payco_callback'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+		if (isset($this->request->post['payco_status'])) {
+			$data['payco_status'] = $this->request->post['payco_status'];
+		} else {
+			$data['payco_status'] = 0;
+		}
+
+		if (isset($this->request->post['payco_callback'])) {
+			$data['payco_callback'] = $this->request->post['payco_callback'];
+		} else {
+			$data['payco_callback'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+		}
+
+		if (isset($this->request->post['payco_confirmation'])) {
+			$data['payco_confirmation'] = $this->request->post['payco_confirmation'];
+		} else {
+			$data['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+		}
+
 
 		/*if (isset($this->request->post['payco_md5'])) {
 			$data['payco_md5'] = $this->request->post['payco_md5'];
@@ -145,10 +244,16 @@ class ControllerPaymentPayco extends Controller {
 			$data['payco_total'] = $this->config->get('payco_total');
 		}*/
 
-		if (isset($this->request->post['payco_order_status_id'])) {
-			$data['payco_order_status_id'] = $this->request->post['payco_order_status_id'];
+		if (isset($this->request->post['payco_initial_order_status_id'])) {
+			$data['payco_initial_order_status_id'] = $this->request->post['payco_initial_order_status_id'];
 		} else {
-			$data['payco_order_status_id'] = $this->config->get('payco_order_status_id');
+			$data['payco_initial_order_status_id'] = $this->config->get('payco_initial_order_status_id');
+		}
+
+		if (isset($this->request->post['payco_final_order_status_id'])) {
+			$data['payco_final_order_status_id'] = $this->request->post['payco_final_order_status_id'];
+		} else {
+			$data['payco_final_order_status_id'] = $this->config->get('payco_final_order_status_id');
 		}
 
 		$this->load->model('localisation/order_status');
@@ -189,12 +294,32 @@ class ControllerPaymentPayco extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
+		if (!$this->request->post['payco_title']) {
+			$this->error['title'] = $this->language->get('error_title');
+		}
+
+		if (!$this->request->post['payco_description']) {
+			$this->error['description'] = $this->language->get('error_description');
+		}
+
 		if (!$this->request->post['payco_merchant']) {
 			$this->error['merchant'] = $this->language->get('error_merchant');
 		}
 
 		if (!$this->request->post['payco_key']) {
 			$this->error['key'] = $this->language->get('error_key');
+		}
+
+		if (!$this->request->post['payco_public_key']) {
+			$this->error['public_key'] = $this->language->get('error_public_key');
+		}
+
+		if (!$this->request->post['payco_callback']) {
+			$this->error['callback'] = $this->language->get('error_callback');
+		}
+
+		if (!$this->request->post['payco_confirmation']) {
+			$this->error['confirmation'] = $this->language->get('error_confirmation');
 		}
 
 		return !$this->error;

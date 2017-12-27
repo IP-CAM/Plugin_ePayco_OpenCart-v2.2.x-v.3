@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Epayco</name>
+    <code>epayco</code>
+    <version>2.1.2</version>
+    <author>Payco</author>
+    <link>https://epayco.co/</link>
+    <file path="admin/controller/payment/payco.php"></file>
+    <file path="admin/language/english/payment/payco.php"></file>
+    <file path="admin/language/spanish/payment/payco.php"></file>
+    <file path="admin/view/image/payment/payco.png"></file>
+    <file path="admin/view/template/payment/payco.tpl"></file>
+    <file path="catalog/controller/payment/payco.php"></file>
+    <file path="catalog/language/english/payment/payco.php"></file>
+    <file path="catalog/language/spanish/payment/payco.php"></file>
+    <file path="catalog/model/payment/payco.php"></file>
+    <file path="catalog/view/theme/default/template/payment/payco.tpl"></file>
+</modification>

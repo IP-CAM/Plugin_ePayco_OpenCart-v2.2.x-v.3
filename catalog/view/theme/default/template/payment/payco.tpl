@@ -1,34 +1,44 @@
 <!--<p style="color:red"><?php echo $alert_comision; ?></p>!-->
-<form method="post" action="<?php echo $action; ?>" id="payment">
 
-  <input type="hidden" name="p_cust_id_cliente"  value="<?php echo $p_cust_id_cliente; ?>">
-  <input type="hidden" name="p_key"  value="<?php echo $p_key; ?>">
-  <input type="hidden" name="p_id_invoice" id="refVenta"  value="<?php echo $p_id_invoice ?>">
-  <input type="hidden" name="p_description"  value="<?php echo $p_description; ?>">
-  <input type="hidden" name="p_amount" id="valor"  value="<?php echo $p_amount; ?>">
-  <input type="hidden" name="p_tax"  value="<?php echo $p_tax; ?>">
-  <input type="hidden" name="p_amount_base"  value="<?php echo $p_amount_base; ?>">
-  <input type="hidden" name="p_billing_first_name" value="<?php echo $p_billing_first_name; ?>" />
-  <input type="hidden" name="p_billing_last_name" value="<?php echo $p_billing_last_name; ?>" />
-  <input type="hidden" name="p_billing_company" value="<?php echo $p_billing_company; ?>" />
-  <input type="hidden" name="p_billing_address" value="<?php echo $p_billing_address; ?>" />
-  <input type="hidden" name="p_billing_city" value="<?php echo $p_billing_city; ?>" />
-  <input type="hidden" name="p_billing_state" value="<?php echo $p_billing_state; ?>" />
-  <input type="hidden" name="p_billing_zip" value="<?php echo $p_billing_zip; ?>" />
-  <input type="hidden" name="p_billing_country" value="<?php echo $p_billing_country; ?>" />
-  <input type="hidden" name="p_customer_ip" value="<?php echo $p_customer_ip; ?>" />
-  <input type="hidden" name="p_email"  value="<?php echo  $p_email;?>">
-  <input type="hidden" name="p_currency_code" id="moneda"  value="<?php echo $p_currency_code; ?>">
-  <input type="hidden" name="p_test_request"  value="<?php echo $p_test_request; ?>">
-  <input type="hidden" name="p_url_response"  value="<?php echo $p_url_response; ?>">
-  <input type="hidden" name="p_url_confirmation"  value="<?php echo $p_url_confirmation; ?>">
-  <input type="hidden" name="p_signature"  value="<?php echo $p_signature; ?>">
-  <input name="p_extra1" type="hidden" value="0">
-  <input name="p_extra2" type="hidden" value="0">
-  <input name="p_extra3" type="hidden" value="0">
-   <div class="buttons">
-      <div class="pull-right">
-        <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
-      </div>
-    </div>
+<div class="buttons">
+  <div class="pull-right">
+    <input id="button_confirm" type="submit" disabled="true" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
+  </div>
+</div>
+
+<form id="epayco_form" style="display: none;">
+    <script
+        src="https://checkout.epayco.co/checkout.js"
+        class="epayco-button"
+        data-epayco-key="<?php echo $p_public_key; ?>"
+        data-epayco-invoice ="<?php echo $p_id_invoice ?>"
+        data-epayco-amount="<?php echo $p_amount; ?>"
+        data-epayco-tax="<?php echo $p_tax; ?>"
+        data-epayco-tax-base="<?php echo $p_amount_base; ?>"
+        data-epayco-name="Vestido Mujer Primavera"
+        data-epayco-description="<?php echo $p_description; ?>"
+        data-epayco-currency="<?php echo $p_currency_code; ?>"
+        data-epayco-country="co"
+        data-epayco-name-billing="<?php echo $p_billing_first_name.' '.$p_billing_last_name; ?>"
+        data-epayco-address-billing="<?php echo $p_billing_address; ?>"
+        data-epayco-email-billing="<?php echo $p_email; ?>"
+        data-epayco-mobilephone-billing="<?php echo $p_billing_phone; ?>"
+        data-epayco-test="<?php echo $p_test_mode; ?>"
+        data-epayco-external="<?php echo $p_payco_checkout_type; ?>"
+        data-epayco-response="<?php echo $p_url_response; ?>"
+        data-epayco-confirmation="<?php echo $p_url_confirmation; ?>"
+        data-extra1="<?php echo $p_extra1 ?>">
+    </script>
 </form>
+
+<script type="text/javascript">
+  $("#button_confirm").on( "click", function(e) {
+    e.preventDefault();
+    $( ".epayco-button-render" ).trigger( "click" );
+
+  });
+
+  document.getElementById("epayco_form").addEventListener("DOMNodeInserted", function (event) {
+    document.getElementById("button_confirm").removeAttribute("disabled");
+  }, false);
+</script>

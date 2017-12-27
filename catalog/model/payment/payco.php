@@ -20,7 +20,7 @@ class ModelPaymentPayco extends Model {
 		if ($status) {
 			$method_data = array(
 				'code'       => 'payco',
-				'title'      => $this->language->get('text_title'),
+				'title'      => $this->config->get('payco_title'),
 				'terms'      => '',
 				'sort_order' => $this->config->get('payco_sort_order')
 			);
