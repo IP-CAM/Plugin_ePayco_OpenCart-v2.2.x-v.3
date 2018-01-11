@@ -165,7 +165,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-final-order-status"><?php echo $entry_initial_order_status; ?></label>
+            <label class="col-sm-2 control-label" for="input-final-order-status"><?php echo $entry_final_order_status; ?></label>
             <div class="col-sm-10">
               <select name="payco_final_order_status_id" id="input-final-order-status" class="form-control">
                 <?php foreach ($order_statuses as $order_status) { ?>
