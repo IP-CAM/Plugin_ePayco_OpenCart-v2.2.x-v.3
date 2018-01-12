@@ -19,7 +19,7 @@ class ControllerPaymentPayco extends Controller {
 		$data['p_show_form'] = 'PAYMENT_FORM';
 		$data['p_test_request'] = $this->config->get('payco_test');
 		$data['p_type'] = 'AUTH_CAPTURE';
-		$data['p_currency_code'] = $this->currency->getCode();
+		$data['p_currency_code'] = $order_info['currency_code'];;
 		$data['p_id_invoice'] = $this->session->data['order_id'];
 		$data['p_description'] = html_entity_decode('Pago orden #'.$this->session->data['order_id']. ' en '.$this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$data['p_billing_first_name'] = html_entity_decode($order_info['payment_firstname'], ENT_QUOTES, 'UTF-8');
@@ -58,7 +58,7 @@ class ControllerPaymentPayco extends Controller {
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/payco.tpl')) {
 			return $this->load->view($this->config->get('config_template') . '/template/payment/payco.tpl', $data);
 		} else {
-			return $this->load->view('default/template/payment/payco.tpl', $data);
+			return $this->load->view('payment/payco.tpl', $data);
 		}
 
 	}
