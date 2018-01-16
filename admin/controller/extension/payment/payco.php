@@ -131,6 +131,14 @@ class ControllerExtensionPaymentPayco extends Controller {
 			$data['error_valor_comision'] = '';
 		}*/
 
+		if ($this->config->get('payment_payco_callback')  === null) {
+			$this->request->post['payment_payco_callback'] = HTTP_CATALOG . 'index.php?route=extension/payment/payco/callback&'; //permitir success
+		}
+
+		if ($this->config->get('payment_payco_confirmation') === null) {
+			$this->request->post['payment_payco_confirmation'] = HTTP_CATALOG . 'index.php?route=extension/payment/payco/callback';
+		} 
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(

@@ -43,7 +43,7 @@ $_['entry_final_order_status_description'] = 'Select the status of the order tha
 $_['entry_geo_zone']     = 'Geo Zone:';
 $_['entry_status']       = 'Enable/Disable:';
 $_['entry_status_description'] = 'Enable ePayco Checkout' ;
-$_['entry_sort_order']   = 'Orden:';
+$_['entry_sort_order']   = 'Order:';
 
 // Error 
 $_['error_permission']   = 'Alert: You do not have permission to modify the ePayco module!';
