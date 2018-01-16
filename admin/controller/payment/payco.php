@@ -130,6 +130,14 @@ class ControllerPaymentPayco extends Controller {
 			$data['error_valor_comision'] = '';
 		}*/
 
+		if ($this->config->get('payco_callback')  === null) {
+			$this->request->post['payco_callback'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback&'; //permitir success
+		}
+
+		if ($this->config->get('payco_confirmation') === null) {
+			$this->request->post['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+		} 
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -219,17 +227,31 @@ class ControllerPaymentPayco extends Controller {
 			$data['payco_status'] = 0;
 		}
 
-		if (isset($this->request->post['payco_callback'])) {
+	/*	if (isset($this->request->post['payco_callback'])) {
 			$data['payco_callback'] = $this->request->post['payco_callback'];
 		} else {
 			$data['payco_callback'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+		}*/
+
+		if (isset($this->request->post['payco_callback'])) {
+			$data['payco_callback'] = $this->request->post['payco_callback'];
+		} else {
+			$data['payco_callback'] = $this->config->get('payco_callback');
 		}
 
 		if (isset($this->request->post['payco_confirmation'])) {
 			$data['payco_confirmation'] = $this->request->post['payco_confirmation'];
 		} else {
-			$data['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+			$data['payco_confirmation'] = $this->config->get('payco_confirmation');
+
 		}
+
+
+		/*if (isset($this->request->post['payco_confirmation'])) {
+			$data['payco_confirmation'] = $this->request->post['payco_confirmation'];
+		} else {
+			$data['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+		}*/
 
 
 		/*if (isset($this->request->post['payco_md5'])) {
@@ -315,11 +337,11 @@ class ControllerPaymentPayco extends Controller {
 		}
 
 		if (!$this->request->post['payco_callback']) {
-			$this->error['callback'] = $this->language->get('error_callback');
+			$this->request->post['payco_callback'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback&'; //permitir success
 		}
 
 		if (!$this->request->post['payco_confirmation']) {
-			$this->error['confirmation'] = $this->language->get('error_confirmation');
+			$this->request->post['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
 		}
 
 		return !$this->error;

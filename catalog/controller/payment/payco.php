@@ -45,6 +45,18 @@ class ControllerPaymentPayco extends Controller {
 		$data['p_url_response'] =$this->config->get('payco_callback');
 		$data['p_url_confirmation'] =$this->config->get('payco_confirmation');
 
+		$data['p_itemname']="";
+		foreach ($this->cart->getProducts() as $product) {
+			 if(trim($product['name'])!=""){
+			 	if($data['p_itemname']==""){
+			 		$data['p_itemname']=$product['name'];
+			 	}else{
+			 		$data['p_itemname'] = $data['p_itemname'].",".$product['name'];
+			 	}
+			 	
+			 }
+		}
+
 		$data['p_public_key'] = $this->config->get('payco_public_key');
 
 		if ((int) $this->config->get('payco_test') == 1) {
@@ -63,43 +75,78 @@ class ControllerPaymentPayco extends Controller {
 
 	}
 
-	public function callback() {
-		if ($this->request->post['x_ref_payco']>0) {
-			$this->load->model('checkout/order');
+	public function callback() 
+	{
+		
 
-			$order_info = $this->model_checkout_order->getOrder($this->request->post['x_id_factura']);
-				
-				$message = '';
-				if (isset($this->request->post['x_respuesta'])) {
-					$message .= 'Estado: ' . $this->request->post['x_respuesta'] . "\n";
-				}
-				if (isset($this->request->post['x_response_reason_text'])) {
-					$message .= 'Respuesta: ' . $this->request->post['x_response_reason_text'] . "\n";
-				}
-
-				if (isset($this->request->post['x_franchise'])) {
-					$message .= 'Franquicia: ' . $this->request->post['x_franchise'] . "\n";
-				}
-
-				if (isset($this->request->post['x_approval_code'])) {
-					$message .= 'Autorización/Cus: ' . $this->request->post['x_approval_code'];
-				}
-
-				if (isset($this->request->post['x_transaction_id'])) {
-					$message .= 'Recibo: ' . $this->request->post['x_transaction_id'];
-				}
-
-
-			if ($order_info && ($this->request->post['x_respuesta'] == 'Aceptada' || $this->request->post['x_respuesta'] == 'Pendiente' )) {
-				
-				$this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('payco_order_status_id'), $message, true);
-
-				$this->response->redirect($this->url->link('checkout/success'));
-			} else {
-				$this->response->redirect($this->url->link('checkout/failure'));
+		if(isset($_GET['ref_payco']) || isset($_GET['?ref_payco'])){
+			if(isset($_GET['?ref_payco'])){
+				$_GET['ref_payco']=$_GET['?ref_payco'];
 			}
+
+			$url="https://secure.epayco.co/validation/v1/reference/".$_GET['ref_payco'];
+			$response=json_decode(file_get_contents($url));
+			$_REQUEST=(array)$response->data;
+			
+		}
+
+		if (isset($_REQUEST['x_id_invoice'])) {
+			$order_id = $_REQUEST['x_id_invoice'];
 		} else {
-			$this->response->redirect($this->url->link('checkout/failure'));
+			$order_id = 0;
+		}
+		if (isset($_REQUEST['x_ref_payco'])) {
+			$this->load->model('checkout/order');
+			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payco_final_order_status_id'));
+			$p_cust_id_cliente=$this->config->get('payco_merchant');
+             $p_key=$this->config->get('payco_key');
+
+                $x_ref_payco=$_REQUEST['x_ref_payco'];
+                $x_transaction_id=$_REQUEST['x_transaction_id'];
+                $x_amount=$_REQUEST['x_amount'];
+                $x_currency_code=$_REQUEST['x_currency_code'];
+                $x_signature=$_REQUEST['x_signature'];
+
+                $signature=hash('sha256',
+                       $p_cust_id_cliente.'^'
+                      .$p_key.'^'
+                      .$x_ref_payco.'^'
+                      .$x_transaction_id.'^'
+                      .$x_amount.'^'
+                      .$x_currency_code
+                    );
+
+				//Validamos la firma
+                if($x_signature==$signature){
+                $x_cod_response=$_REQUEST['x_cod_response'];
+                switch ((int)$x_cod_response) {
+                    case 1:
+                       $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payco_final_order_status_id'), '', true);
+                        break;
+                    case 2:
+                        $this->model_checkout_order->addOrderHistory($order_id, 8, '', true);
+                        break;
+                    case 3:
+                        $this->model_checkout_order->addOrderHistory($order_id, 1, '', true);
+                        break;
+                    case 4:
+                       $this->model_checkout_order->addOrderHistory($order_id, 10, '', true);
+                        break;              
+                    
+                }
+
+                if($x_cod_response==1 || $x_cod_response==3){
+                	$this->response->redirect($this->url->link('checkout/success'));
+                }else{
+                	$this->response->redirect($this->url->link('checkout/failure'));
+                }
+
+                }else{
+                    die("Firma no valida");
+                }                	
+
+		}else{
+			echo "no hay  request";
 		}
 	}
 }
