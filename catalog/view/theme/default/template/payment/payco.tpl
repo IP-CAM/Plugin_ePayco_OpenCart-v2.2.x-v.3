@@ -15,7 +15,7 @@
         data-epayco-amount="<?php echo $p_amount; ?>"
         data-epayco-tax="<?php echo $p_tax; ?>"
         data-epayco-tax-base="<?php echo $p_amount_base; ?>"
-        data-epayco-name="Vestido Mujer Primavera"
+        data-epayco-name="<?php echo $p_itemname; ?>"
         data-epayco-description="<?php echo $p_description; ?>"
         data-epayco-currency="<?php echo $p_currency_code; ?>"
         data-epayco-country="co"
