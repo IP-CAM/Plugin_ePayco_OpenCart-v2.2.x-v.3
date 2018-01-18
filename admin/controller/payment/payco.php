@@ -138,6 +138,15 @@ class ControllerPaymentPayco extends Controller {
 			$this->request->post['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
 		} 
 
+		if ($this->config->get('payco_initial_order_status_id')  === null) {
+			$this->request->post['payco_initial_order_status_id'] = 1;
+		}
+
+		if ($this->config->get('payco_final_order_status_id') === null) {
+			$this->request->post['payco_final_order_status_id'] = 5;
+		} 
+
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
