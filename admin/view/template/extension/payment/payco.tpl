@@ -143,7 +143,7 @@
             <div class="col-sm-10">
               <select name="payco_checkout_type" id="input-checkout-type" class="form-control">
                 <option value="false" <?php if ( $payco_checkout_type == 'false' ):?> selected="true" <?php endif ?>>Onpage Checkout</option>
-                <option value="true" <?php if ( $payco_checkout_type == 'true' ):?> selected="true" <?php endif ?>>Standart Checkout</option>
+                <option value="true" <?php if ( $payco_checkout_type == 'true' ):?> selected="true" <?php endif ?>>Standard Checkout</option>
                 <!-- <option value="true" selected="true">Standart Checkout</option> -->
               </select>
               <p style="margin: 5px 5px;color: #afaeae;"><?php echo $entry_checkout_type_description; ?></p>

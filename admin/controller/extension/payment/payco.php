@@ -1,9 +1,9 @@
 <?php
-class ControllerPaymentPayco extends Controller {
+class ControllerExtensionPaymentPayco extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('payment/payco');
+		$this->load->language('extension/payment/payco');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -14,7 +14,8 @@ class ControllerPaymentPayco extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
-			$this->response->redirect($this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL'));
+			$this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=payment', true));
+
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
@@ -131,33 +132,42 @@ class ControllerPaymentPayco extends Controller {
 		}*/
 
 		if ($this->config->get('payco_callback')  === null) {
-			$this->request->post['payco_callback'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback&'; //permitir success
+			$this->request->post['payco_callback'] = HTTP_CATALOG . 'index.php?route=extension/payment/payco/callback&'; //permitir success
 		}
 
 		if ($this->config->get('payco_confirmation') === null) {
-			$this->request->post['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+			$this->request->post['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=extension/payment/payco/callback';
+		}
+
+		if ($this->config->get('payco_initial_order_status_id')  === null) {
+			$this->request->post['payco_initial_order_status_id'] = 1;
+		}
+
+		if ($this->config->get('payco_final_order_status_id') === null) {
+			$this->request->post['payco_final_order_status_id'] = 5;
 		} 
 
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_payment'),
-			'href' => $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL')
+			'text' => $this->language->get('text_extension'),
+			'href' => $this->url->link('marketplace/extension', 'token=' . $this->session->data['token'] . '&type=payment', true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('payment/payco', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('extension/payment/payco', 'token=' . $this->session->data['token'], true)
 		);
 
-		$data['action'] = $this->url->link('payment/payco', 'token=' . $this->session->data['token'], 'SSL');
+		//links
+		$data['action'] = $this->url->link('extension/payment/payco', 'token=' . $this->session->data['token'], true);
 
-		$data['cancel'] = $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL');
+		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=payment', true);
 
 		if (isset($this->request->post['payco_merchant'])) {
 			$data['payco_merchant'] = $this->request->post['payco_merchant'];
@@ -221,18 +231,6 @@ class ControllerPaymentPayco extends Controller {
 			$data['payco_test'] = $this->config->get('payco_test');
 		}
 
-		if (isset($this->request->post['payco_status'])) {
-			$data['payco_status'] = $this->request->post['payco_status'];
-		} else {
-			$data['payco_status'] = 0;
-		}
-
-	/*	if (isset($this->request->post['payco_callback'])) {
-			$data['payco_callback'] = $this->request->post['payco_callback'];
-		} else {
-			$data['payco_callback'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
-		}*/
-
 		if (isset($this->request->post['payco_callback'])) {
 			$data['payco_callback'] = $this->request->post['payco_callback'];
 		} else {
@@ -245,13 +243,6 @@ class ControllerPaymentPayco extends Controller {
 			$data['payco_confirmation'] = $this->config->get('payco_confirmation');
 
 		}
-
-
-		/*if (isset($this->request->post['payco_confirmation'])) {
-			$data['payco_confirmation'] = $this->request->post['payco_confirmation'];
-		} else {
-			$data['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
-		}*/
 
 
 		/*if (isset($this->request->post['payco_md5'])) {
@@ -308,11 +299,12 @@ class ControllerPaymentPayco extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('payment/payco.tpl', $data));
+		$this->response->setOutput($this->load->view('extension/payment/payco', $data));
+
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'payment/payco')) {
+		if (!$this->user->hasPermission('modify', 'extension/payment/payco')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
@@ -337,13 +329,22 @@ class ControllerPaymentPayco extends Controller {
 		}
 
 		if (!$this->request->post['payco_callback']) {
-			$this->request->post['payco_callback'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback&'; //permitir success
+			$this->request->post['payco_callback'] = HTTP_CATALOG . 'index.php?route=extension/payment/payco/callback&'; //permitir success
 		}
 
 		if (!$this->request->post['payco_confirmation']) {
-			$this->request->post['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=payment/payco/callback';
+			$this->request->post['payco_confirmation'] = HTTP_CATALOG . 'index.php?route=extension/payment/payco/callback';
 		}
+
+		
 
 		return !$this->error;
 	}
+
+	public function uninstall()
+    {
+        $this->load->model('extension/payment/payco');
+        $this->load->model('setting/setting');
+        $this->model_setting_setting->deleteSetting('payco');
+    }
 }

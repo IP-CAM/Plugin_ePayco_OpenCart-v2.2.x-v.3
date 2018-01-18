@@ -2,6 +2,7 @@
 // Heading
 $_['heading_title']      = 'ePayco';
 $_['text_payco']					= '<a href="https://epayco.co/" target="_blank"><img src="https://369969691f476073508a-60bf0867add971908d4f26a64519c2aa.ssl.cf5.rackcdn.com/logos/logo_epayco_200px.png" alt="ePayco" title="ePayco" style="max-width: 90px;" /></a>';
+$_['text_extension'] = 'Extensions';
 
 // Text 
 $_['text_payment']       = 'Payment';
@@ -45,7 +46,7 @@ $_['entry_status_description'] = 'Enable ePayco Checkout' ;
 $_['entry_sort_order']   = 'Order:';
 
 // Error 
-$_['error_permission']   = 'Alerta: Usted no tiene permisos para modificar el modulo ePayco!';
+$_['error_permission']   = 'Alert: You do not have permission to modify the ePayco module!';
 $_['error_title']        = 'Title Required!';
 $_['error_description']  = 'Description Required!';
 $_['error_merchant']     = 'P_CUST_ID_CLIENTE Required!';

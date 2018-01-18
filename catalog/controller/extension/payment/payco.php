@@ -1,12 +1,11 @@
 <?php
-class ControllerPaymentPayco extends Controller {
+class ControllerExtensionPaymentPayco extends Controller {
 	public function index() {
-		$this->load->language('payment/payco');
+		$this->load->language('extension/payment/payco');
 
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
 		$this->load->model('checkout/order');
-
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 		$data['action']='https://secure.payco.co/payment.php';
 		$data['p_cust_id_cliente'] = $this->config->get('payco_merchant');
@@ -19,7 +18,7 @@ class ControllerPaymentPayco extends Controller {
 		$data['p_show_form'] = 'PAYMENT_FORM';
 		$data['p_test_request'] = $this->config->get('payco_test');
 		$data['p_type'] = 'AUTH_CAPTURE';
-		$data['p_currency_code'] = $order_info['currency_code'];
+		$data['p_currency_code'] = $order_info['currency_code'];;
 		$data['p_id_invoice'] = $this->session->data['order_id'];
 		$data['p_description'] = html_entity_decode( $this->language->get('text_payment_description').$this->session->data['order_id']. ' '.$this->language->get('text_payment_description_in').' '.$this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$data['p_billing_first_name'] = html_entity_decode($order_info['payment_firstname'], ENT_QUOTES, 'UTF-8');
@@ -41,10 +40,11 @@ class ControllerPaymentPayco extends Controller {
 		$data['p_shiping_country'] = html_entity_decode($order_info['shipping_country'], ENT_QUOTES, 'UTF-8');
 		$data['p_customer_ip'] = $this->request->server['REMOTE_ADDR'];
 		$data['p_email'] = $order_info['email'];
-		$data['p_extra1'] = 'OpenCart V 2.1.2';
+		$data['p_extra1'] = 'OpenCart V 2.3.x';
 		$data['p_url_response'] =$this->config->get('payco_callback');
 		$data['p_url_confirmation'] =$this->config->get('payco_confirmation');
 
+		$data['p_public_key'] = $this->config->get('payco_public_key');
 		$data['p_itemname']="";
 		foreach ($this->cart->getProducts() as $product) {
 			 if(trim($product['name'])!=""){
@@ -57,8 +57,6 @@ class ControllerPaymentPayco extends Controller {
 			 }
 		}
 
-		$data['p_public_key'] = $this->config->get('payco_public_key');
-
 		if ((int) $this->config->get('payco_test') == 1) {
 			$data['p_test_mode'] = 'true';
 		} else {
@@ -70,7 +68,7 @@ class ControllerPaymentPayco extends Controller {
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/payco.tpl')) {
 			return $this->load->view($this->config->get('config_template') . '/template/payment/payco.tpl', $data);
 		} else {
-			return $this->load->view('/payment/payco.tpl', $data);
+			return $this->load->view('extension/payment/payco', $data);
 		}
 
 	}
@@ -89,7 +87,6 @@ class ControllerPaymentPayco extends Controller {
 			$_REQUEST=(array)$response->data;
 			
 		}
-
 		if (isset($_REQUEST['x_id_invoice'])) {
 			$order_id = $_REQUEST['x_id_invoice'];
 		} else {
