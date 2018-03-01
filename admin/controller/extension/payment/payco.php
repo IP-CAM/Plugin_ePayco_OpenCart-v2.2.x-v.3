@@ -170,9 +170,9 @@ class ControllerExtensionPaymentPayco extends Controller {
 		$data['cancel'] = $this->url->link('extension/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
 		if (isset($this->request->post['payment_payco_merchant'])) {
-			$data['payment_payco_merchant'] = $this->request->post['payment_payco_merchant'];
+			$data['payment_payco_merchant'] = trim($this->request->post['payment_payco_merchant']);
 		} else {
-			$data['payment_payco_merchant'] = $this->config->get('payment_payco_merchant');
+			$data['payment_payco_merchant'] = trim($this->config->get('payment_payco_merchant'));
 		}
 
 		if (isset($this->request->post['payment_payco_title'])) {
@@ -196,15 +196,15 @@ class ControllerExtensionPaymentPayco extends Controller {
 		}
 
 		if (isset($this->request->post['payment_payco_key'])) {
-			$data['payment_payco_key'] = $this->request->post['payment_payco_key'];
+			$data['payment_payco_key'] = trim($this->request->post['payment_payco_key']);
 		} else {
-			$data['payment_payco_key'] = $this->config->get('payment_payco_key');
+			$data['payment_payco_key'] = trim($this->config->get('payment_payco_key'));
 		}
 
 		if (isset($this->request->post['payment_payco_public_key'])) {
-			$data['payment_payco_public_key'] = $this->request->post['payment_payco_public_key'];
+			$data['payment_payco_public_key'] = trim($this->request->post['payment_payco_public_key']);
 		} else {
-			$data['payment_payco_public_key'] = $this->config->get('payment_payco_public_key');
+			$data['payment_payco_public_key'] = trim($this->config->get('payment_payco_public_key'));
 		}
 
 		if (isset($this->request->post['payment_payco_checkout_type'])) {
