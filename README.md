@@ -38,13 +38,6 @@
 After configuring the fields press the ** Save ** button. And with this, the payment method for customers will be installed, configured and activated.
 
 
-## Steps
-
-<img src = "ImgTutorialOpenCart / tuto-1.jpg" width = "400px" />
-<img src = "ImgTutorialOpenCart / tuto-2.jpg" width = "400px" />
-<img src = "ImgTutorialOpenCart / tuto-3.jpg" width = "400px" />
-<img src = "ImgTutorialOpenCart / tuto-4.jpg" width = "400px" />
-
 ## Versions
 * [ePayco plugin OpenCart v3.0] (https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/3.0).
 * [ePayco plugin OpenCart v2.3.0.3] (https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/2.3.0.3).
