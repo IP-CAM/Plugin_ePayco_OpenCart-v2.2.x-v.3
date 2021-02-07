@@ -1,54 +1,53 @@
-#ePayco plugin para OpenCart v2.2.x
+#ePayco plugin for OpenCart v2.2.x
 
-**Si usted tiene alguna pregunta o problema, no dude en ponerse en contacto con nuestro soporte técnico: desarrollo@payco.co.**
+** If you have any questions or problems, do not hesitate to contact our technical support: development@payco.co.**
 
-## Tabla de contenido
+## Table of Contents
 
-* [Requisitos](#requisitos)
-* [Instalación](#instalación)
-* [Configuración](#configuración)
-* [Pasos](#pasos)
-* [Versiones](#versiones)
+* [Requirements] (# requirements)
+* [Installation] (# installation)
+* [Configuration] (# configuration)
+* [Steps] (# steps)
+* [Versions] (# versions)
 
-## Requisitos
+## Requirements
 
-* Tener una cuenta activa en [ePayco](https://pagaycobra.com).
-* Tener instalado OpenCart v1.5.x o superior.
-* Acceso a las carpetas donde se encuetra instalado OpenCart.
+* Have an active account at [ePayco] (https://pagaycobra.com).
+* Have OpenCart v1.5.x or higher installed.
+* Access to the folders where OpenCart is installed.
 
-## Instalación
+## Installation
 
-1. [Descarga el plugin.](https://github.com/epayco/Plugin_ePayco_OpenCart/releases)
-2. Ubíquese en el directorio raíz del plugin, descomprimido y seleccione las carpetas que se encuentran en esa ubicación y cópielas en el directorio raíz del Open Cart, en caso de que le aparezca un mensaje sobre reemplazar carpetas, presione aceptar ya que es necesario sobrescribirlas, con esto ya está instalado el plugin, ahora pase al siguiente punto de configuración.
-
-
-## Configuración
-
-1. Para configurar el Plugin de ePayco, ingrese al administrador de open cart, ubique la sección **Extensions** en el menú principal, despliegue las opciones y haga clic sobre la opción **Payment**.
-2. En la sección Payment encontrara una tabla con los métodos de pagos disponibles en el open cart entre ellos Payco, posiciónese sobre el y ubíquese en la columna Action de la tabla, haga clic en link Install, ahora el plugin se encuentra habilitado.
-3. Ahora puede ver dos nuevos link presione el link Edit, para configurar el plugin.
-4. Configure los siguientes campos:
-
-	* **Usuario id**: Numero de usuario.
-	* **Llave secreta**: Código asignado por ePayco.
-	* **Estado**: yes (activara el medio de pago)
-	* **Estado de pedido**: es el estado por defecto que se asignara aun pedido mientras se encuentra en proceso.
-	* **Prueba**: Si (para realizar pruebas) o No (pasar a producción).
-
-Luego de configurar los campos presione el botón **Save**. Y con esto quedara instalado, configurado y activado el método de pago para los clientes.
+1. [Download the plugin.] (Https://github.com/epayco/Plugin_ePayco_OpenCart/releases)
+2. Go to the root directory of the plugin, unzipped and select the folders found in that location and copy them to the root directory of the Open Cart, in case you get a message about replacing folders, press accept as it is necessary to overwrite them With this the plugin is installed, now go to the next configuration point.
 
 
-## Pasos
+## Setting
 
-<img src="ImgTutorialOpenCart/tuto-1.jpg" width="400px"/>
-<img src="ImgTutorialOpenCart/tuto-2.jpg" width="400px"/>
-<img src="ImgTutorialOpenCart/tuto-3.jpg" width="400px"/>
-<img src="ImgTutorialOpenCart/tuto-4.jpg" width="400px"/>
+1. To configure the ePayco Plugin, enter the open cart administrator, locate the ** Extensions ** section in the main menu, display the options and click on the ** Payment ** option.
+2. In the Payment section you will find a table with the payment methods available in the open cart, including Payco, position yourself on it and go to the Action column of the table, click on the Install link, now the plugin is enabled.
+3. Now you can see two new links press the Edit link, to configure the plugin.
+4. Configure the following fields:
 
-## Versiones
-* [ePayco plugin OpenCart v3.0](https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/3.0).
-* [ePayco plugin OpenCart v2.3.0.3](https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/2.3.0.3).
-* [ePayco plugin OpenCart v2.2.x](https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/2.2.x).
-* [ePayco plugin OpenCart v2.1.x](https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/2.1.x).
-* [ePayco plugin OpenCart v1.5.x](https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/1.5.x).
+* ** User id **: User number.
+* ** Secret key **: Code assigned by ePayco.
+* ** Status **: yes (will activate the payment method)
+* ** Order status **: is the default status that will be assigned to an order while it is in process.
+* ** Test **: Yes (to carry out tests) or No (go to production).
 
+After configuring the fields press the ** Save ** button. And with this, the payment method for customers will be installed, configured and activated.
+
+
+## Steps
+
+<img src = "ImgTutorialOpenCart / tuto-1.jpg" width = "400px" />
+<img src = "ImgTutorialOpenCart / tuto-2.jpg" width = "400px" />
+<img src = "ImgTutorialOpenCart / tuto-3.jpg" width = "400px" />
+<img src = "ImgTutorialOpenCart / tuto-4.jpg" width = "400px" />
+
+## Versions
+* [ePayco plugin OpenCart v3.0] (https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/3.0).
+* [ePayco plugin OpenCart v2.3.0.3] (https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/2.3.0.3).
+* [ePayco plugin OpenCart v2.2.x] (https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/2.2.x).
+* [ePayco plugin OpenCart v2.1.x] (https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/2.1.x).
+* [ePayco plugin OpenCart v1.5.x] (https://github.com/epayco/Plugin_ePayco_OpenCart/releases/tag/1.5.x). 
